@@ -1,0 +1,55 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<pre>
+    测试：
+    1. 布尔型属性的设置
+
+    发现：
+    1. btn.disabled 只会返回 true/false，设置为其他类型会被转换为布尔型后再赋值，通过此方式设置后，disabled Attribute 都是 ""
+</pre>
+<hr>
+
+<button id="btn1">click me</button>
+<button id="btn2">watch</button>
+<button id="btn3" disabled>un-clickable</button>
+<button id="btn4">normal</button>
+<script>
+    const btn1 = document.getElementById('btn1');
+    const btn2 = document.getElementById('btn2');
+    const btn3 = document.getElementById('btn3');
+    const btn4 = document.getElementById('btn4');
+
+    btn1.onclick = () => {
+        btn1.setAttribute('disabled', 'disabled')
+        btn2.setAttribute('disabled', '')
+        // 设置成任意值都是表示 禁用按钮 ('true' 'false' true false '' 'disabled' undefined null)
+        // 非字符串类型会被转为字符串然后赋值
+
+
+        // 设为 ’disabled'
+        console.log('btn1 attribute', btn1.getAttribute('disabled')) // ‘disabled’
+        console.log('btn1 property', btn1.disabled) // true
+
+        // 设为 ’‘
+        console.log('btn2 attribute', btn2.getAttribute('disabled')) // true
+        console.log('btn2 property', btn2.disabled) // ''
+
+        // 标签设置 disabled
+        console.log('btn3 attribute', btn3.getAttribute('disabled')) // true
+        console.log('btn3 property', btn3.disabled)
+
+        // 未设置 disabled 属性
+        console.log('btn4 attribute', btn4.getAttribute('disabled')) // null
+        console.log('btn4 property', btn4.disabled) // false
+    }
+</script>
+</body>
+</html>

@@ -1,0 +1,36 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>md-editor</title>
+    <script type="module" src="./src/main.js" defer></script>
+    <style>
+        .editor {
+        }
+    </style>
+</head>
+<body>
+<div class="app">
+    <h4>My markdown editor built with web components</h4>
+    <c-editor class="editor" title="hello world">
+    </c-editor>
+
+    <script type="module">
+        import {createDocumentTreeFromJSON} from "./src/web-components/utils.js";
+        const childNodes = createDocumentTreeFromJSON([
+            { type: 'p', children: [
+                { type: 'text', content: 'this is a perfect editor.', color: 'red' }
+            ]},
+            { type: 'p', children: [
+                { type: 'text', content: 'it is!', bold: true }
+            ]}
+        ]);
+
+        document.querySelector('.editor').append(...childNodes);
+    </script>
+</div>
+</body>
+</html>

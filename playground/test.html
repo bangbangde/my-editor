@@ -1,0 +1,57 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport"
+          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+</head>
+<body>
+<pre>
+    测试：
+    1. 自定义元素 A 添加到 自定义元素 B 中是否会触发 connectedCallback
+    2. 自定义元素添加到 fragment 是否会触发 connectedCallback
+    3. 自定义元素的 nodeType 是啥... 【该复习了，元素 就是一种 node 类型】
+
+    发现：
+    constructor 中不能设置 textContent
+</pre>
+<hr>
+<script>
+    class CustomElementA extends HTMLElement {
+        constructor() {
+            super()
+        }
+        connectedCallback() {
+            this.textContent = 'c-a'
+            console.log('Element A connected to the DOM');
+            console.log('nodeType', this.nodeType)
+        }
+    }
+
+    class CustomElementB extends HTMLElement {
+        constructor() {
+            super()
+        }
+        connectedCallback() {
+            this.textContent = 'c-b'
+            console.log('Element B connected to the DOM');
+        }
+    }
+
+
+    window.customElements.define('c-a', CustomElementA);
+    window.customElements.define('c-b', CustomElementB);
+
+    const elA = document.createElement('c-a');
+    const elB = document.createElement('c-b');
+
+    const fragment = document.createDocumentFragment();
+    fragment.appendChild(elA);
+    fragment.appendChild(elB);
+
+    document.body.appendChild(fragment);
+</script>
+</body>
+</html>
